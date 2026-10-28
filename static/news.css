@@ -1,0 +1,127 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f9f9f9;
+  color: #333;
+}
+
+header {
+  background: #0a3d62;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* News Grid Layout */
+.news-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* News Card */
+.news-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+}
+
+.news-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.news-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.news-content h2 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.news-content h2 a {
+  text-decoration: none;
+  color: #0a3d62;
+}
+
+.news-content h2 a:hover {
+  text-decoration: underline;
+}
+
+.news-content p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.news-content small {
+  font-size: 12px;
+  color: gray;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 20px;
+  }
+
+  .news-container {
+    grid-template-columns: 1fr; /* single column on tablets */
+    padding: 15px;
+  }
+
+  .news-content h2 {
+    font-size: 16px;
+  }
+
+  .news-content p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 18px;
+  }
+
+  .news-card img {
+    height: 150px;
+  }
+
+  .news-content {
+    padding: 10px;
+  }
+
+  .news-content h2 {
+    font-size: 15px;
+  }
+
+  .news-content p {
+    font-size: 12px;
+  }
+}

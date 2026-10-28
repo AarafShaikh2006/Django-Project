@@ -1,0 +1,14 @@
+# Web framework
+Django>=5.2,<6.0
+
+# HTTP / data fetching
+requests>=2.32
+yfinance>=0.2.40
+
+# Data processing
+numpy>=2.0
+pandas>=2.2
+
+# Machine learning (stock prediction)
+scikit-learn>=1.5
+tensorflow>=2.16

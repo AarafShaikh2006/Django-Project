@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'login_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h2>Login</h2>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <p>
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username }}  </p>
+        <p>
+            <label for="{{ form.password.id_for_label }}">Password:</label>
+            {{ form.password }}  </p>
+        <button type="submit">Login</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,530 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}InvestWise{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Master the Stock Market</h1>
+        <p>From beginner to expert, Investwize teaches you everything about trading and investing.</p>
+        <a href="{% url 'services' %}" class="btn">Start Quizz</a>
+    </div>
+    <canvas id="heroCanvas"></canvas>
+</div>
+
+<section class="learning-section">
+    <h2>📘 Learning Hub</h2>
+
+    <!-- Beginner Level -->
+    <div class="level">
+        <h3>Beginner Level</h3>
+        <div class="learning-grid">
+            <div class="learning-card">
+                <img src="{% static 'card1.jpeg' %}" alt="Lesson 1">
+                <h4>Introduction to Stock Market</h4>
+                <p>Learn what the stock market is, how it works, and why it exists.</p>
+                <button class="learn-btn" onclick="openLesson('Introduction to Stock Market')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card112.jpg' %}" alt="Lesson 2">
+                <h4>Stock Market Terminology</h4>
+                <p>Familiarize yourself with essential stock market terms.</p>
+                <button class="learn-btn" onclick="openLesson('Stock Market Terminology')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card3.jpeg' %}" alt="Lesson 3">
+                <h4>Opening a Trading Account</h4>
+                <p>Step-by-step guide to open a Demat and trading account safely.</p>
+                <button class="learn-btn" onclick="openLesson('Opening a Trading Account')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card4.jpeg' %}" alt="Lesson 4">
+                <h4>Understanding Stock Prices</h4>
+                <p>Learn how stock prices are determined and what influences their movement.</p>
+                <button class="learn-btn" onclick="openLesson('Understanding Stock Prices')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card5.jpeg' %}" alt="Lesson 5">
+                <h4>Types of Stocks</h4>
+                <p>Discover different types of stocks and their investment impact.</p>
+                <button class="learn-btn" onclick="openLesson('Types of Stocks')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card6.jpeg' %}" alt="Lesson 6">
+                <h4>How to Read Stock Charts</h4>
+                <p>Learn to read stock charts, trends, and candlestick patterns.</p>
+                <button class="learn-btn" onclick="openLesson('How to Read Stock Charts')">Learn More</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Intermediate Level -->
+    <div class="level">
+        <h3>Intermediate Level</h3>
+        <div class="learning-grid">
+            <div class="learning-card">
+                <img src="{% static 'card7.jpeg' %}" alt="Lesson 7">
+                <h4>Portfolio Management</h4>
+                <p>Learn how to create a diversified investment portfolio.</p>
+                <button class="learn-btn" onclick="openLesson('Portfolio Management')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card8.jpeg' %}" alt="Lesson 8">
+                <h4>Fundamental Analysis</h4>
+                <p>Analyze financial statements and growth potential.</p>
+                <button class="learn-btn" onclick="openLesson('Fundamental Analysis')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card9.jpeg' %}" alt="Lesson 9">
+                <h4>Technical Analysis Basics</h4>
+                <p>Learn chart patterns, trendlines, and trading indicators.</p>
+                <button class="learn-btn" onclick="openLesson('Technical Analysis Basics')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card10.jpeg' %}" alt="Lesson 10">
+                <h4>Understanding Dividends</h4>
+                <p>Learn how dividends work and how to earn income from them.</p>
+                <button class="learn-btn" onclick="openLesson('Understanding Dividends')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card111.jpg' %}" alt="Lesson 11">
+                <h4>Risk Management Strategies</h4>
+                <p>Explore techniques to protect investments and manage losses.</p>
+                <button class="learn-btn" onclick="openLesson('Risk Management Strategies')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card12.jpg' %}" alt="Lesson 12">
+                <h4>Mutual Funds & ETFs</h4>
+                <p>Understand mutual funds, ETFs, and index funds for diversification.</p>
+                <button class="learn-btn" onclick="openLesson('Mutual Funds & ETFs')">Learn More</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Advanced Level -->
+    <div class="level">
+        <h3>Advanced Level</h3>
+        <div class="learning-grid">
+            <div class="learning-card">
+                <img src="{% static 'card13.jpg' %}" alt="Lesson 13">
+                <h4>Options & Futures Trading</h4>
+                <p>Dive into derivatives like options and futures, strategies, and pricing.</p>
+                <button class="learn-btn" onclick="openLesson('Options & Futures Trading')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card14.jpg' %}" alt="Lesson 14">
+                <h4>Algorithmic Trading</h4>
+                <p>Understand automated trading systems and algorithmic strategies.</p>
+                <button class="learn-btn" onclick="openLesson('Algorithmic Trading')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card15.jpg' %}" alt="Lesson 15">
+                <h4>Quantitative Analysis</h4>
+                <p>Learn data-driven methods and statistical models used by traders.</p>
+                <button class="learn-btn" onclick="openLesson('Quantitative Analysis')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card16.jpg' %}" alt="Lesson 16">
+                <h4>Technical Indicators Advanced</h4>
+                <p>Explore RSI, MACD, Bollinger Bands, and advanced trade timing techniques.</p>
+                <button class="learn-btn" onclick="openLesson('Technical Indicators Advanced')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card17.jpg' %}" alt="Lesson 17">
+                <h4>Global Market Insights</h4>
+                <p>Understand international markets, indices, currencies, and global impacts.</p>
+                <button class="learn-btn" onclick="openLesson('Global Market Insights')">Learn More</button>
+            </div>
+            <div class="learning-card">
+                <img src="{% static 'card18.jpg' %}" alt="Lesson 18">
+                <h4>Advanced Portfolio Strategies</h4>
+                <p>Learn portfolio optimization, asset allocation, and hedging techniques.</p>
+                <button class="learn-btn" onclick="openLesson('Advanced Portfolio Strategies')">Learn More</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lesson Modal -->
+<div id="lessonModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeLesson()">&times;</span>
+        <h3 id="lessonTitle"></h3>
+        <p id="lessonContent"></p>
+        <img id="lessonImage" class="lesson-image" src="" alt="">
+    </div>
+</div>
+
+<!-- Investment Calculators Section -->
+<section class="calculator-section">
+    <h2>💹 Financial Calculators</h2>
+    <div class="calculator-grid">
+
+        <!-- SIP Calculator -->
+        <div class="calculator-card">
+            <h3>SIP Calculator</h3>
+            <label>Monthly Investment (₹):</label>
+            <input type="number" id="sipAmount" placeholder="Enter monthly SIP amount">
+
+            <label>Expected Annual Return (%):</label>
+            <input type="number" id="sipRate" placeholder="Enter annual return rate">
+
+            <label>Investment Duration (years):</label>
+            <input type="number" id="sipTime" placeholder="Enter investment period">
+
+            <button onclick="calculateSIP()">Calculate</button>
+
+            <div class="result-box" id="sipResult">
+                <!-- Result will appear here -->
+            </div>
+        </div>
+
+        <!-- Loan Calculator -->
+        <div class="calculator-card">
+            <h3>Loan Calculator</h3>
+            <label>Loan Amount (₹):</label>
+            <input type="number" id="loanPrincipal" placeholder="Enter loan amount">
+
+            <label>Annual Interest Rate (%):</label>
+            <input type="number" id="loanRate" placeholder="Enter interest rate">
+
+            <label>Loan Duration (years):</label>
+            <input type="number" id="loanTime" placeholder="Enter loan tenure">
+
+            <button onclick="calculateLoan()">Calculate</button>
+
+            <div class="result-box" id="loanResult">
+                <!-- Result will appear here -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Lessons JS -->
+<script>
+const lessonDetails = {
+    "Introduction to Stock Market": {
+        content: `The stock market is a platform where companies raise funds by issuing shares, and investors buy and sell these shares to earn profits. 
+In this lesson, you'll learn:
+1. **What Stocks Are:** Stocks represent ownership in a company. Owning shares gives you a claim on profits and assets.
+2. **Primary vs Secondary Market:** The primary market is where companies issue new shares. The secondary market is where existing shares are traded.
+3. **Stock Exchanges:** Platforms like NSE, BSE, and NYSE facilitate trading. You'll understand how exchanges maintain order and transparency.
+4. **Market Participants:** Retail investors, institutional investors, traders, brokers, and regulators.
+5. **Trading Mechanisms:** Learn about order types, bid-ask spreads, and how buying and selling happens.
+6. **Market Concepts:** Liquidity, volatility, market capitalization, and indices like Sensex and Nifty.
+By the end of this lesson, you'll have a strong foundation in the stock market and understand how it operates from a beginner’s perspective.`,
+        image: "{% static 'card1.jpeg' %}"
+    },
+
+    "Stock Market Terminology": {
+        content: `Understanding terminology is crucial for navigating the stock market. This lesson covers:
+1. **IPO (Initial Public Offering):** How companies go public and raise capital.
+2. **Market Cap:** Total value of a company’s shares in the market, used to classify companies as large-cap, mid-cap, or small-cap.
+3. **Dividends:** Portions of company profits distributed to shareholders.
+4. **Bull and Bear Markets:** Market trends indicating rising or falling stock prices.
+5. **Other Key Terms:** P/E ratio, EPS, ROE, debt-to-equity, and sector indices.
+You’ll also learn the importance of financial statements and basic indicators to understand company health and market movements.`,
+        image: "{% static 'card112.jpg' %}"
+    },
+
+    "Opening a Trading Account": {
+        content: `To start investing, you need a Demat and trading account. This lesson explains:
+1. **Documents Needed:** PAN card, Aadhaar card, bank proof, photograph, and address proof.
+2. **Choosing a Broker:** Factors like brokerage fees, trading platforms, research tools, and customer support.
+3. **Demat Account Setup:** Stores your shares in electronic format, making buying and selling seamless.
+4. **Trading Account Setup:** Enables executing buy and sell orders on exchanges.
+5. **Safety Tips:** Secure passwords, two-factor authentication, avoiding phishing scams.
+By the end, you’ll be confident to set up an account and start trading safely.`,
+        image: "{% static 'card3.jpeg' %}"
+    },
+
+    "Understanding Stock Prices": {
+        content: `Stock prices change based on supply and demand, market sentiment, and company performance. This lesson covers:
+1. **Price Determinants:** Company earnings, economic indicators, news, and investor behavior.
+2. **Market Psychology:** Fear and greed, herd mentality, and their impact on prices.
+3. **Price Trends:** Short-term fluctuations vs long-term trends.
+4. **Technical vs Fundamental Influences:** How charts and financial analysis can predict movements.
+5. **Practical Examples:** Real-world scenarios showing why stock prices rise or fall.
+You'll learn to analyze price movements to make informed trading decisions.`,
+        image: "{% static 'card4.jpeg' %}"
+    },
+
+    "Types of Stocks": {
+        content: `There are several types of stocks that serve different investment purposes:
+1. **Common vs Preferred Stocks:** Common stockholders have voting rights; preferred stockholders get fixed dividends.
+2. **Large-Cap, Mid-Cap, Small-Cap:** Classification based on market capitalization, each with different risk-return profiles.
+3. **Growth vs Dividend Stocks:** Growth stocks focus on capital appreciation; dividend stocks provide regular income.
+4. **Sector-specific Stocks:** Technology, finance, FMCG, etc.
+Understanding these categories helps you diversify and build a balanced portfolio.`,
+        image: "{% static 'card5.jpeg' %}"
+    },
+
+    "How to Read Stock Charts": {
+        content: `Stock charts visualize price movements and help in decision-making. This lesson includes:
+1. **Types of Charts:** Line, bar, and candlestick charts.
+2. **Trendlines:** Identify upward, downward, and sideways trends.
+3. **Volume Analysis:** Shows the strength of price movements.
+4. **Support and Resistance Levels:** Key points where prices tend to reverse.
+5. **Basic Patterns:** Head and shoulders, double top/bottom, triangles.
+By learning to read charts, you can anticipate market behavior and make timely trades.`,
+        image: "{% static 'card6.jpeg' %}"
+    },
+
+    "Portfolio Management": {
+        content: `Portfolio management is about making strategic investment decisions. This lesson covers:
+1. **Diversification:** Reduce risk by investing across multiple assets.
+2. **Asset Allocation:** Balancing equities, bonds, and cash.
+3. **Risk Assessment:** Determine your risk tolerance and plan accordingly.
+4. **Monitoring and Rebalancing:** Adjust your portfolio based on performance and market changes.
+5. **Practical Tips:** Setting long-term goals, using index funds, and minimizing emotional trading.
+By the end, you'll understand how to manage your investments effectively.`,
+        image: "{% static 'card7.jpeg' %}"
+    },
+
+    "Fundamental Analysis": {
+        content: `Fundamental analysis evaluates a company’s intrinsic value. This lesson includes:
+1. **Financial Statements:** Balance sheet, income statement, cash flow statement.
+2. **Key Ratios:** P/E, ROE, debt-to-equity, current ratio.
+3. **Earnings and Growth:** Analyzing revenue, net profit, and growth trends.
+4. **Qualitative Factors:** Management quality, competitive advantage, industry outlook.
+5. **Decision Making:** Identify undervalued and overvalued stocks for investment.
+You'll gain the skills to make informed long-term investment choices.`,
+        image: "{% static 'card8.jpeg' %}"
+    },
+
+    "Technical Analysis Basics": {
+        content: `Technical analysis uses price and volume data to predict stock movements:
+1. **Charts:** Line, bar, and candlestick.
+2. **Trendlines & Patterns:** Head and shoulders, triangles, double tops/bottoms.
+3. **Indicators:** RSI, MACD, moving averages, Bollinger Bands.
+4. **Support & Resistance:** Key levels to buy/sell.
+5. **Trading Strategies:** Using indicators and patterns for entry and exit points.
+This equips you with tools to trade based on market behavior.`,
+        image: "{% static 'card9.jpeg' %}"
+    },
+
+    "Understanding Dividends": {
+        content: `Dividends are a portion of profits paid to shareholders. This lesson includes:
+1. **Dividend Types:** Regular, special, stock dividends.
+2. **Dividend Yield & Payout Ratio:** Measures of return from dividends.
+3. **Income Strategies:** How to build a dividend-based income portfolio.
+4. **Taxation:** Tax implications of dividend income.
+5. **Selecting Dividend Stocks:** Criteria for stable and high-yield stocks.
+You'll learn to earn passive income from dividends.`,
+        image: "{% static 'card10.jpeg' %}"
+    },
+
+    "Risk Management Strategies": {
+        content: `Risk management is essential to protect investments:
+1. **Diversification:** Spread investments across assets.
+2. **Stop-Loss Orders:** Automatic sell at predetermined price to limit losses.
+3. **Hedging:** Using derivatives like options to reduce risk.
+4. **Position Sizing:** Limiting capital exposure per trade.
+5. **Psychology:** Avoid emotional decisions, maintain discipline.
+Learn to reduce potential losses while optimizing gains.`,
+        image: "{% static 'card111.jpg' %}"
+    },
+
+    "Mutual Funds & ETFs": {
+        content: `Mutual funds and ETFs allow investors to pool money and invest collectively:
+1. **Mutual Funds:** Actively or passively managed, invests in stocks, bonds, or balanced funds.
+2. **ETFs:** Traded like stocks, often tracking indices.
+3. **Benefits:** Diversification, professional management, liquidity.
+4. **Cost Considerations:** Expense ratios, management fees.
+5. **Selecting Funds:** Based on goals, risk tolerance, and performance.
+You'll learn how to invest safely and diversify efficiently.`,
+        image: "{% static 'card12.jpg' %}"
+    },
+
+    "Options & Futures Trading": {
+        content: `Options and futures are derivatives that derive value from underlying assets:
+1. **Futures:** Obligation to buy/sell at a predetermined price on a specific date.
+2. **Options:** Right, but not obligation, to buy/sell at a set price.
+3. **Strategies:** Hedging, speculation, arbitrage.
+4. **Pricing:** Factors like volatility, time, and strike price.
+5. **Risks & Rewards:** Higher leverage, potential for high returns or losses.
+This lesson prepares you for advanced trading techniques.`,
+        image: "{% static 'card13.jpg' %}"
+    },
+
+    "Algorithmic Trading": {
+        content: `Algorithmic trading uses computer programs to execute trades automatically:
+1. **Algorithms:** Predefined rules for buying/selling.
+2. **Types:** Trend-following, mean-reversion, arbitrage strategies.
+3. **Execution Speed:** Computers execute trades faster than humans.
+4. **Backtesting:** Testing strategies on historical data.
+5. **Risk Management:** Monitor algorithms to avoid unexpected losses.
+Learn how technology shapes modern trading.`,
+        image: "{% static 'card14.jpg' %}"
+    },
+
+    "Quantitative Analysis": {
+        content: `Quantitative analysis involves using mathematical and statistical models:
+1. **Statistical Tools:** Regression analysis, probability, correlations.
+2. **Financial Models:** CAPM, Black-Scholes, Monte Carlo simulations.
+3. **Data-driven Decisions:** Using historical data to predict returns and risk.
+4. **Portfolio Optimization:** Balancing risk vs return mathematically.
+5. **Practical Applications:** Algorithmic strategies, risk management.
+You'll learn to make trading decisions based on numbers and models.`,
+        image: "{% static 'card15.jpg' %}"
+    },
+
+    "Technical Indicators Advanced": {
+        content: `Advanced technical indicators help fine-tune trades:
+1. **RSI & MACD:** Identify overbought/oversold conditions.
+2. **Bollinger Bands:** Measure volatility and price deviations.
+3. **Moving Averages:** Trend confirmation and crossovers.
+4. **Combining Indicators:** Avoid false signals, confirm trends.
+5. **Practical Trading:** Integrate indicators into strategies.
+Learn to apply advanced tools for precise trading decisions.`,
+        image: "{% static 'card16.jpg' %}"
+    },
+
+    "Global Market Insights": {
+        content: `Global markets impact local investments:
+1. **Major Markets:** NYSE, NASDAQ, FTSE, Nikkei, etc.
+2. **Indices:** S&P 500, Dow Jones, Sensex, Nifty.
+3. **Currency Influence:** Exchange rates affect import/export stocks.
+4. **Global Events:** Geopolitical news, economic policies, interest rates.
+5. **Investment Decisions:** Learn to analyze international trends and adjust portfolios.
+Gain a perspective on global market dynamics.`,
+        image: "{% static 'card17.jpg' %}"
+    },
+
+    "Advanced Portfolio Strategies": {
+        content: `Advanced strategies maximize returns while managing risk:
+1. **Portfolio Optimization:** Use statistical models for ideal asset allocation.
+2. **Hedging Techniques:** Protect investments from downturns using derivatives.
+3. **Sector Rotation:** Invest in sectors at different phases of the economic cycle.
+4. **Risk-adjusted Returns:** Sharpe ratio, alpha, beta.
+5. **Long-term Strategy:** Combine diversification, hedging, and periodic review.
+This lesson equips you to manage sophisticated investment portfolios.`,
+        image: "{% static 'card18.jpg' %}"
+    }
+};
+function openLesson(title) {
+    const lesson = lessonDetails[title];
+    if (lesson) {
+        document.getElementById("lessonTitle").innerText = title;
+        document.getElementById("lessonContent").innerText = lesson.content;
+        document.getElementById("lessonImage").src = lesson.image;
+        document.getElementById("lessonModal").classList.add("show");
+        document.body.style.overflow = 'hidden'; // prevent background scroll
+    }
+}
+
+function closeLesson() {
+    document.getElementById("lessonModal").classList.remove("show");
+    document.body.style.overflow = 'auto'; // restore scroll
+}
+// ==========================
+    // SIP Calculator Function
+    // ==========================
+    function calculateSIP() {
+        let P = parseFloat(document.getElementById("sipAmount").value);
+        let r = parseFloat(document.getElementById("sipRate").value) / 100 / 12;
+        let n = parseFloat(document.getElementById("sipTime").value) * 12;
+
+        let resultBox = document.getElementById("sipResult");
+
+        if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || r <= 0 || n <= 0) {
+            resultBox.innerHTML = "<p class='error'>⚠️ Please enter valid positive values.</p>";
+            resultBox.classList.add("show");
+            return;
+        }
+
+        let futureValue = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+        let investedAmount = P * n;
+        let estimatedReturns = futureValue - investedAmount;
+
+        resultBox.innerHTML = `
+            <p><strong>Invested Amount:</strong> ₹${investedAmount.toFixed(2)}</p>
+            <p><strong>Estimated Returns:</strong> ₹${estimatedReturns.toFixed(2)}</p>
+            <p><strong>Total Value:</strong> ₹${futureValue.toFixed(2)}</p>
+        `;
+        resultBox.classList.add("show");
+    }
+
+    // ==========================
+    // Loan Calculator Function
+    // ==========================
+    function calculateLoan() {
+        let P = parseFloat(document.getElementById("loanPrincipal").value);
+        let annualRate = parseFloat(document.getElementById("loanRate").value) / 100;
+        let years = parseFloat(document.getElementById("loanTime").value);
+        let n = years * 12;
+        let r = annualRate / 12;
+
+        let resultBox = document.getElementById("loanResult");
+
+        if (isNaN(P) || isNaN(annualRate) || isNaN(years) || P <= 0 || annualRate <= 0 || years <= 0) {
+            resultBox.innerHTML = "<p class='error'>⚠️ Please enter valid positive values.</p>";
+            resultBox.classList.add("show");
+            return;
+        }
+
+        let EMI = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        let totalPayment = EMI * n;
+        let totalInterest = totalPayment - P;
+
+        resultBox.innerHTML = `
+            <p><strong>Monthly EMI:</strong> ₹${EMI.toFixed(2)}</p>
+            <p><strong>Total Interest:</strong> ₹${totalInterest.toFixed(2)}</p>
+            <p><strong>Total Payment:</strong> ₹${totalPayment.toFixed(2)}</p>
+        `;
+        resultBox.classList.add("show");
+    }
+</script>
+
+<!-- Hero Animation Script -->
+<script>
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let lines = [];
+for(let i=0;i<40;i++){
+    lines.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        length: Math.random()*200+50,
+        speed: Math.random()*1+0.3,
+        angle: Math.random()*2*Math.PI
+    });
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+    ctx.lineWidth = 2;
+    lines.forEach(line=>{
+        ctx.beginPath();
+        ctx.moveTo(line.x,line.y);
+        ctx.lineTo(line.x + Math.cos(line.angle)*line.length, line.y + Math.sin(line.angle)*line.length);
+        ctx.stroke();
+
+        line.x += Math.cos(line.angle)*line.speed;
+        line.y += Math.sin(line.angle)*line.speed;
+
+        if(line.x>canvas.width||line.x<0) line.x=Math.random()*canvas.width;
+        if(line.y>canvas.height||line.y<0) line.y=Math.random()*canvas.height;
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener('resize',()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+{% endblock content %}

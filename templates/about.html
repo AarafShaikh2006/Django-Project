@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+
+<section class="about-section">
+    <div class="container">
+        <h1 class="page-title">About Investwize</h1>
+        <p class="intro-text">
+            At <strong>Investwize</strong>, we believe smart investing starts with smart information. 
+            Our platform brings together live stock market tracking, educational insights, and portfolio tools 
+            designed to help investors make confident, data-driven decisions.
+        </p>
+
+        <div class="mission">
+            <h2>Our Mission</h2>
+            <p>
+                To democratize financial knowledge and make investing simple, transparent, and accessible for everyone. 
+                We bridge the gap between Wall Street expertise and everyday investors, empowering you to take control 
+                of your financial future.
+            </p>
+        </div>
+
+        <div class="offerings">
+            <h2>What We Offer</h2>
+            <ul>
+                <li><strong>Live Market Tracking:</strong> Real-time updates on stocks, indices, and global markets.</li>
+                <li><strong>Portfolio Tools:</strong> Track your investments and analyze performance effortlessly.</li>
+                <li><strong>Learning Hub:</strong> Articles, guides, and market insights crafted by professionals.</li>
+                <li><strong>Alerts & Notifications:</strong> Stay informed about price movements and breaking news.</li>
+                <li><strong>Community Support:</strong> Learn and grow alongside like-minded investors.</li>
+            </ul>
+        </div>
+
+        <div class="why-choose">
+            <h2>Why Choose Investwize</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Accurate</h3>
+                    <p>Real-time, verified market data.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Insightful</h3>
+                    <p>Actionable analysis, not just numbers.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Intuitive</h3>
+                    <p>Clean, modern design for smooth navigation.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Trusted</h3>
+                    <p>Built by passionate investors, for investors.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews">
+            <h2>What Our Users Say</h2>
+            <div class="review-cards">
+                <div class="review-card">
+                    <p class="review-text">
+                        “Investwize made it so easy to understand stock market trends. 
+                        I finally feel confident managing my portfolio.”
+                    </p>
+                    <p class="review-author">– Ravi K., Beginner Investor</p>
+                </div>
+
+                <div class="review-card">
+                    <p class="review-text">
+                        “The live tracking tools are fast and accurate — exactly what I need for my day-to-day trading.”
+                    </p>
+                    <p class="review-author">– Ananya S., Active Trader</p>
+                </div>
+
+                <div class="review-card">
+                    <p class="review-text">
+                        “I use Investwize for both research and portfolio monitoring. 
+                        It’s a professional-grade tool with a great user interface.”
+                    </p>
+                    <p class="review-author">– Rahul D., Financial Analyst</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta">
+            <h2>Join the Future of Smart Investing</h2>
+            <p>Start exploring the markets with confidence. Be part of the Investwize community — where knowledge meets opportunity.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

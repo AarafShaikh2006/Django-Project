@@ -1,0 +1,224 @@
+/* ==========================
+   Services Page Styles
+========================== */
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+
+.services-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 40px;
+  font-size: 2rem;
+}
+
+/* Linear Progress Bar */
+.progress-bar-bg {
+  max-width: 600px;
+  height: 20px;
+  margin: 0 auto 40px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: #27ae60;
+  text-align: center;
+  color: white;
+  font-size: 12px;
+  line-height: 20px;
+  border-radius: 20px;
+  transition: width 0.5s ease;
+}
+
+/* Topics Grid */
+.topics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.learn-card {
+  flex: 1;
+  min-width: 260px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.learn-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.learn-card h3 {
+  margin-top: 0;
+  color: #34495e;
+}
+
+.learn-card p {
+  color: #555;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.learn-card button {
+  padding: 8px 15px;
+  background: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.learn-card button:hover {
+  background: #3498db;
+}
+
+/* Lesson Modal */
+.lesson-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.lesson-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+}
+
+.lesson-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.lesson-title {
+  color: #2980b9;
+}
+
+.lesson-content {
+  margin-top: 15px;
+  color: #555;
+}
+
+.lesson-quiz-btn {
+  margin-top: 20px;
+  background: #2980b9;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ==========================
+   Circular Progress Bar
+========================== */
+.progress-circle {
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.progress-circle svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.progress-circle circle.bg {
+  fill: none;
+  stroke: #e0e0e0;
+  stroke-width: 10;
+}
+
+.progress-circle circle.progress {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+.progress-circle .percent-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Glow animation on completion */
+.progress-circle.completed circle.progress {
+  animation: glow 0.8s ease forwards;
+}
+
+@keyframes glow {
+  0% {
+    stroke-width: 8;
+    filter: drop-shadow(0 0 0px #27ae60);
+  }
+  50% {
+    stroke-width: 12;
+    filter: drop-shadow(0 0 8px #27ae60);
+  }
+  100% {
+    stroke-width: 10;
+    filter: drop-shadow(0 0 4px #27ae60);
+  }
+}
+
+.progress-circle.completed .percent-text {
+  animation: pop 0.5s ease;
+}
+
+@keyframes pop {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.3); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ==========================
+   Responsive
+========================== */
+@media (max-width: 768px) {
+  .topics-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .learn-card {
+    width: 90%;
+  }
+}

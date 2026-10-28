@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+ <link rel="stylesheet" href="{% static 'css/ipo.css' %}">
+<div class="container">
+  <h1>📊 IPO Dashboard</h1>
+
+  <!-- Ongoing IPOs -->
+  <section>
+    <h2>Ongoing IPOs</h2>
+    {% if ongoing_ipos %}
+      <div class="card-grid">
+        {% for ipo in ongoing_ipos %}
+        <div class="card">
+          <h3>{{ ipo.companyName }}</h3>
+          <p><strong>Open:</strong> {{ ipo.openDate }}</p>
+          <p><strong>Close:</strong> {{ ipo.closeDate }}</p>
+          <p><strong>Price Band:</strong> {{ ipo.priceBand }}</p>
+          <p><strong>Issue Size:</strong> {{ ipo.issueSize }}</p>
+          <p><strong>Lot Size:</strong> {{ ipo.lotSize }}</p>
+          {% if ipo.rhpLink %}
+          <a href="{{ ipo.rhpLink }}" target="_blank">View RHP</a>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No ongoing IPOs available at the moment.</p>
+    {% endif %}
+  </section>
+
+  <!-- Upcoming IPOs -->
+  <section>
+    <h2>Upcoming IPOs</h2>
+    {% if upcoming_ipos %}
+      <div class="card-grid">
+        {% for ipo in upcoming_ipos %}
+        <div class="card upcoming">
+          <h3>{{ ipo.companyName }}</h3>
+          <p><strong>Opens:</strong> {{ ipo.openDate }}</p>
+          <p><strong>Closes:</strong> {{ ipo.closeDate }}</p>
+          <p><strong>Price Band:</strong> {{ ipo.priceBand }}</p>
+          <p><strong>Issue Size:</strong> {{ ipo.issueSize }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No upcoming IPOs found.</p>
+    {% endif %}
+  </section>
+
+  <!-- Recently Listed IPOs -->
+  <section>
+    <h2>Recently Listed IPOs</h2>
+    {% if listed_ipos %}
+      <div class="card-grid">
+        {% for ipo in listed_ipos %}
+        <div class="card listed">
+          <h3>{{ ipo.companyName }}</h3>
+          <p><strong>Issue Price:</strong> {{ ipo.issuePrice }}</p>
+          <p><strong>Listing Price:</strong> {{ ipo.listingPrice }}</p>
+          <p><strong>Listing Gain:</strong> {{ ipo.listingGain }}</p>
+          <p><strong>Listing Date:</strong> {{ ipo.listingDate }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No recently listed IPOs available.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

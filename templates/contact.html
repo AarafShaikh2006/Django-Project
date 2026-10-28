@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<header>
+    <h1>Contact Us</h1>
+    <p>We’d love to hear from you. Please fill out the form below.</p>
+</header>
+
+<main>
+    <div class="contact-container">
+        <div class="contact-image">
+            <img src="{% static 'images.jpg' %}" alt="Contact Us">
+        </div>
+
+        <div class="contact-form">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="text" name="phone" placeholder="Your Phone" required>
+                <textarea name="desc" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+{% for message in messages %}
+  {% if "contact" in message.tags %}
+    <div class="alert alert-{{ message.level_tag }}">
+      {{ message }}
+    </div>
+  {% endif %}
+{% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

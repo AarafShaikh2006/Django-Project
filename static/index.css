@@ -1,0 +1,492 @@
+/* ===========================
+   Global Styles
+=========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: 15px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+/* ===========================
+   Buttons
+=========================== */
+.btn, .learn-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn {
+    background-color: #2980b9;
+    color: #fff;
+}
+
+.btn:hover {
+    background-color: #1f6391;
+}
+
+.learn-btn {
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+}
+
+.learn-btn:hover {
+    background-color: #1e8449;
+}
+
+/* ===========================
+   Hero Section
+=========================== */
+.hero {
+    position: relative;
+    height: 90vh;
+    background: linear-gradient(135deg, #1a73e8, #003b8e);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+}
+
+.hero-content .btn {
+    font-size: 1.1rem;
+}
+
+/* Responsive Hero */
+@media screen and (max-width: 768px) {
+    .hero-content h1 { font-size: 2.5rem; }
+    .hero-content p { font-size: 1.1rem; }
+}
+
+@media screen and (max-width: 480px) {
+    .hero-content h1 { font-size: 2rem; }
+    .hero-content p { font-size: 1rem; }
+}
+
+/* Canvas for animated lines */
+#heroCanvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* ===========================
+   Learning Hub Section
+=========================== */
+.learning-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.learning-section h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+/* Learning Grid */
+.learning-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    justify-items: center;
+}
+
+/* Learning Card */
+.learning-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%;
+    max-width: 320px;
+    padding-bottom: 20px;
+}
+
+.learning-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.learning-card h3, .learning-card h4 {
+    color: #2980b9;
+    margin: 15px 0 10px 0;
+}
+
+.learning-card p {
+    color: #555;
+    font-size: 0.95rem;
+    padding: 0 15px;
+    margin-bottom: 15px;
+}
+
+/* Hover effect */
+.learning-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* ===========================
+   Modal Styles
+=========================== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal.show { display: flex; }
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 80vh; /* Limit modal height */
+    overflow-y: auto; /* Scroll if content is long */
+    position: relative;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px; right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-btn:hover { color: #000; }
+/* ===========================
+   Lesson Modal
+=========================== */
+/* Modal Overlay */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* semi-transparent */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto; /* allows scrolling if content too tall */
+}
+
+.modal.show { display: flex; }
+
+/* Modal Content */
+.modal-content {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 800px;       /* maximum modal width */
+    width: 100%;
+    max-height: 90vh;       /* fit within viewport height */
+    overflow-y: auto;       /* scroll inside modal if content exceeds height */
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-btn:hover { color: #000; }
+
+/* Lesson Title & Content */
+.modal-content h3 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Lesson Image */
+.lesson-image {
+    display: block;
+    margin: 0 auto 20px auto;
+    max-width: 100%;      /* fit modal width */
+    max-height: 60vh;     /* never taller than 60% of viewport height */
+    object-fit: contain;   /* maintain aspect ratio */
+    border-radius: 8px;
+}
+
+/* Optional: Side by side on desktop */
+@media screen and (min-width: 768px) {
+    .modal-content {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .lesson-image {
+        max-width: 50%; /* Image takes half width */
+        margin: 0;
+    }
+
+    .modal-content p, .modal-content h3 {
+        max-width: 50%;
+    }
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.9);}
+    to {opacity: 1; transform: scale(1);}
+}
+
+/* ===========================
+   Calculator Section
+=========================== */
+/* ===========================
+   Calculator Section Styling
+=========================== */
+
+.calculator-section {
+    padding: 60px 20px;
+    background: #f9fafc;
+    text-align: center;
+}
+
+.calculator-section h2 {
+    font-size: 2rem;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* ===========================
+   Calculator Grid Layout
+=========================== */
+.calculator-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    justify-content: center;
+    align-items: start;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ===========================
+   Calculator Card Styling
+=========================== */
+.calculator-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calculator-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.calculator-card h3 {
+    color: #2c3e50;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* ===========================
+   Label and Input Styling
+=========================== */
+.calculator-card label {
+    display: block;
+    margin-top: 10px;
+    color: #34495e;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.calculator-card input {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 5px;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calculator-card input:focus {
+    border-color: #27ae60;
+    box-shadow: 0 0 4px rgba(39, 174, 96, 0.3);
+}
+
+/* ===========================
+   Button Styling
+=========================== */
+.calculator-card button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #27ae60;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.calculator-card button:hover {
+    background: #219150;
+    transform: translateY(-2px);
+}
+
+/* ===========================
+   Result Box Styling
+=========================== */
+.result-box {
+    margin-top: 18px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #eaf7f0;
+    border-left: 5px solid #27ae60;
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.result-box.show {
+    display: block;
+}
+
+.result-box p {
+    margin: 6px 0;
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.result-box strong {
+    color: #1e8449;
+}
+
+.result-box .error {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* ===========================
+   Responsive Design
+=========================== */
+@media (max-width: 768px) {
+    .calculator-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .calculator-card {
+        padding: 20px;
+    }
+
+    .calculator-card button {
+        font-size: 0.95rem;
+    }
+}
+
+/* ===========================
+   Fade Animation
+=========================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ===========================
+   Responsive
+=========================== */
+@media screen and (max-width: 768px) {
+    .hero-content h1 { font-size: 2.2rem; }
+    .hero-content p { font-size: 1rem; }
+}
+
+@media screen and (max-width: 480px) {
+    .learning-card { max-width: 100%; }
+    .calculator-grid { grid-template-columns: 1fr; }
+    .modal-content { flex-direction: column; padding: 20px; }
+    .lesson-image { max-width: 90%; margin: 20px auto; }
+}

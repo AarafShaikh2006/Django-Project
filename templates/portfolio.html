@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* Autocomplete dropdown styling */
+#suggestions {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    padding: 0;
+    margin-top: 2px;
+    list-style: none;
+}
+#suggestions li {
+    padding: 5px;
+    cursor: pointer;
+}
+#suggestions li:hover {
+    background-color: #f0f0f0;
+}
+</style>
+{% endblock extra_head %}
+
+{% block content %}
+<div class="portfolio-container">
+
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+        <div class="card">
+            <h3>Total Investment</h3>
+            <p id="totalInvestment">{{ total_investment|floatformat:2 }}</p>
+        </div>
+        <div class="card">
+            <h3>Current Value</h3>
+            <p id="totalCurrentValue">{{ total_current_value|floatformat:2 }}</p>
+        </div>
+        <div class="card">
+            <h3>Profit / Loss</h3>
+            <p id="totalProfitLoss" class="{% if total_profit_loss >= 0 %}profit{% else %}loss{% endif %}">
+                {{ total_profit_loss|floatformat:2 }}
+            </p>
+        </div>
+        <div class="card">
+            <h3>Total Stocks</h3>
+            <p>{{ total_stocks }}</p>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts">
+        <div class="chart-box">
+            <canvas id="allocationChart"></canvas>
+        </div>
+        <div class="chart-box">
+            <canvas id="valueChart"></canvas>
+        </div>
+    </div>
+
+    <!-- TradingView Chart + Screener -->
+    <div class="tv-wrapper">
+        <div id="tv_chart_container"></div>
+        <div id="tv_screener_container"></div>
+    </div>
+
+    <!-- Add New Stock Form -->
+    <div class="form-container">
+        <h3>Add New Stock</h3>
+        <form id="stockForm" method="POST" autocomplete="off">
+            {% csrf_token %}
+            <p style="position:relative;">
+                <label for="id_stock_symbol">Stock Symbol:</label>
+                <input type="text" id="id_stock_symbol" name="stock_symbol" placeholder="Search Stock Symbol" autocomplete="off">
+                <ul id="suggestions"></ul>
+            </p>
+            <p>
+                <label for="id_quantity">Quantity:</label>
+                <input type="number" name="quantity" id="id_quantity" placeholder="Quantity">
+            </p>
+            <p>
+                <label for="id_buy_price">Buy Price:</label>
+                <input type="number" name="buy_price" id="id_buy_price" placeholder="Buy Price">
+            </p>
+            <button type="submit" class="btn-add">Add Stock</button>
+        </form>
+    </div>
+
+    <!-- Portfolio Table -->
+    {% if portfolio %}
+    <div class="table-container">
+        <table class="portfolio-table">
+            <thead>
+                <tr>
+                    <th>Stock</th>
+                    <th>Quantity</th>
+                    <th>Buy Price</th>
+                    <th>Investment</th>
+                    <th>Current Price</th>
+                    <th>Current Value</th>
+                    <th>Profit/Loss</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in portfolio %}
+                <tr class="stock-row" data-id="{{ stock.id }}">
+                    <td>{{ stock.symbol }}</td>
+                    <td>{{ stock.quantity }}</td>
+                    <td>{{ stock.buy_price|floatformat:2 }}</td>
+                    <td>{{ stock.investment|floatformat:2 }}</td>
+                    <td class="current-price">{{ stock.current_price|floatformat:2 }}</td>
+                    <td class="current-value">{{ stock.current_value|floatformat:2 }}</td>
+                    <td class="profit-loss {% if stock.profit_loss >= 0 %}profit{% else %}loss{% endif %}">
+                        {{ stock.profit_loss|floatformat:2 }}
+                    </td>
+                    <td>
+                        <form method="post" action="{% url 'delete_stock' stock.id %}" onsubmit="return confirm('Are you sure?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="no-stocks">No stocks added yet. Use the form above to add your first stock.</p>
+    {% endif %}
+
+</div>
+
+<!-- Charts JS -->
+<script>
+const allocationCtx = document.getElementById('allocationChart').getContext('2d');
+const valueCtx = document.getElementById('valueChart').getContext('2d');
+
+let allocationChart = new Chart(allocationCtx, {
+    type: 'pie',
+    data: {
+        labels: [{% for stock in portfolio %}'{{ stock.symbol }}',{% endfor %}],
+        datasets: [{
+            label: 'Investment Allocation',
+            data: [{% for stock in portfolio %}{{ stock.investment }},{% endfor %}],
+            backgroundColor: ['#0077ff','#ff9800','#4caf50','#e91e63','#9c27b0','#f44336','#03a9f4'],
+        }]
+    },
+    options: { responsive: true }
+});
+
+let valueChart = new Chart(valueCtx, {
+    type: 'line',
+    data: {
+        labels: {{ portfolio_history.dates|safe }},
+        datasets: [{
+            label: 'Portfolio Value Over Time',
+            data: {{ portfolio_history.values|safe }},
+            backgroundColor: 'rgba(0,123,255,0.2)',
+            borderColor: 'rgba(0,123,255,1)',
+            borderWidth: 2,
+            fill: true
+        }]
+    },
+    options: { responsive: true }
+});
+</script>
+
+<!-- Autocomplete JS -->
+<script>
+const stockInput = document.getElementById("id_stock_symbol");
+const suggestionsList = document.getElementById("suggestions");
+let debounceTimer;
+const stockInfo = document.createElement("p");
+stockInfo.id = "stockInfo";
+stockInfo.style.marginTop = "5px";
+stockInfo.style.color = "#0077ff";
+stockInfo.style.fontSize = "0.9rem";
+stockInput.parentNode.appendChild(stockInfo);
+
+function highlightMatch(text, query) {
+    const regex = new RegExp(`(${query})`, "gi");
+    return text.replace(regex, "<strong>$1</strong>");
+}
+
+stockInput.addEventListener("input", function() {
+    clearTimeout(debounceTimer);
+    const query = this.value.trim();
+    suggestionsList.innerHTML = "";
+    stockInfo.innerText = "";
+
+    if(query.length < 2) return;
+
+    debounceTimer = setTimeout(() => {
+        suggestionsList.innerHTML = "<li>Loading...</li>";
+        fetch(`/symbol_search/?q=${query}`)
+        .then(res => res.json())
+        .then(data => {
+            suggestionsList.innerHTML = "";
+            if(data.length === 0){
+                suggestionsList.innerHTML = "<li>No results found</li>";
+                return;
+            }
+            data.forEach(item => {
+                const li = document.createElement("li");
+                li.innerHTML = `${highlightMatch(item.symbol, query)} – ${highlightMatch(item.name, query)} (${item.region})`;
+
+                li.onclick = () => {
+                    stockInput.value = item.symbol;
+                    suggestionsList.innerHTML = "";
+                    stockInfo.innerText = `${item.name} • ${item.region} • ${item.currency}`;
+                };
+
+                li.onmouseover = () => {
+                    stockInfo.innerText = `${item.name} • ${item.region} • ${item.currency}`;
+                };
+
+                li.onmouseleave = () => {
+                    stockInfo.innerText = "";
+                };
+
+                suggestionsList.appendChild(li);
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            suggestionsList.innerHTML = "<li>Error fetching suggestions</li>";
+        });
+    }, 300);
+});
+
+document.addEventListener("click", (e) => {
+    if(!stockInput.contains(e.target)) suggestionsList.innerHTML = "";
+});
+
+document.getElementById("stockForm").addEventListener("submit", function(e){
+    const stock = stockInput.value.trim();
+    if(!stock){
+        e.preventDefault();
+        alert("Please select a valid stock from suggestions.");
+    }
+});
+</script>
+
+<!-- Live Portfolio Updates -->
+<script>
+function updatePortfolioPrices() {
+    fetch("{% url 'update_prices' %}")
+    .then(res => res.json())
+    .then(data => {
+        data.stocks.forEach(stock => {
+            const row = document.querySelector(`.stock-row[data-id='${stock.id}']`);
+            if(row){
+                row.querySelector(".current-price").innerText = (stock.current_price || 0).toFixed(2);
+                row.querySelector(".current-value").innerText = (stock.current_value || 0).toFixed(2);
+                const plCell = row.querySelector(".profit-loss");
+                plCell.innerText = (stock.profit_loss || 0).toFixed(2);
+                plCell.className = "profit-loss " + ((stock.profit_loss || 0) >=0 ? "profit" : "loss");
+            }
+        });
+        document.getElementById("totalCurrentValue").innerText = (data.total_current_value || 0).toFixed(2);
+        const totalPL = document.getElementById("totalProfitLoss");
+        totalPL.innerText = (data.total_profit_loss || 0).toFixed(2);
+        totalPL.className = (data.total_profit_loss || 0) >=0 ? "profit" : "loss";
+
+        allocationChart.data.datasets[0].data = data.stocks.map(s => s.current_value);
+        allocationChart.update();
+
+        valueChart.data.datasets[0].data.push(data.total_current_value);
+        const today = new Date();
+        valueChart.data.labels.push(today.toISOString().split('T')[0]);
+        valueChart.update();
+    })
+    .catch(err => console.error("Error updating prices:", err));
+}
+
+setInterval(updatePortfolioPrices, 30000);
+updatePortfolioPrices();
+</script>
+
+<!-- TradingView Chart -->
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script>
+new TradingView.widget({
+  "container_id": "tv_chart_container",
+  "width": "100%",
+  "height": "600",
+  "symbol": "NSE:TATAPOWER",
+  "interval": "D",
+  "timezone": "Asia/Kolkata",
+  "theme": "light",
+  "style": "1",
+  "locale": "in",
+  "toolbar_bg": "#f1f3f6",
+  "withdateranges": true,
+  "allow_symbol_change": true,
+  "details": true,
+  "calendar": true,
+  "hotlist": true,
+});
+</script>
+
+<!-- TradingView Screener -->
+<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+{
+  "width": "100%",
+  "height": "600",
+  "defaultColumn": "overview",
+  "defaultScreen": "most_capitalized",
+  "market": "india",
+  "showToolbar": true,
+  "colorTheme": "light",
+  "locale": "in"
+}
+</script>
+
+{% endblock content %}

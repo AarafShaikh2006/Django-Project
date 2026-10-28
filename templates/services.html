@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Link to external CSS -->
+<link rel="stylesheet" href="{% static 'css/services.css' %}">
+
+<div class="services-container">
+    <h1 class="services-title">📘 Stock Market Learning Hub</h1>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-bg">
+        <div id="progressBar" class="progress-bar-fill">0%</div>
+    </div>
+
+    <!-- Topics Grid -->
+    <div class="topics-grid">
+
+        <!-- Topic Cards -->
+        <div class="learn-card" data-topic="stock_basics">
+            <h3>📖 Stock Market Basics</h3>
+            <p>Learn what the stock market is and how investors trade shares.</p>
+            <button onclick="openLesson('stock_basics', this)">Learn</button>
+        </div>
+
+        <div class="learn-card" data-topic="ipo_dividends">
+            <h3>💰 IPO & Dividends</h3>
+            <p>Understand IPOs and dividends, and how investors earn returns.</p>
+            <button onclick="openLesson('ipo_dividends', this)">Learn</button>
+        </div>
+
+        <div class="learn-card" data-topic="fundamental_analysis">
+            <h3>📊 Fundamental Analysis</h3>
+            <p>Analyze company financials, ratios, and health to make investment decisions.</p>
+            <button onclick="openLesson('fundamental_analysis', this)">Learn</button>
+        </div>
+
+        <div class="learn-card" data-topic="technical_analysis">
+            <h3>📈 Technical Analysis</h3>
+            <p>Learn charts, trends, and indicators to predict stock price movements.</p>
+            <button onclick="openLesson('technical_analysis', this)">Learn</button>
+        </div>
+
+        <div class="learn-card" data-topic="market_orders">
+            <h3>📝 Market & Limit Orders</h3>
+            <p>Understand how to buy/sell shares using different order types.</p>
+            <button onclick="openLesson('market_orders', this)">Learn</button>
+        </div>
+
+        <div class="learn-card" data-topic="ratios">
+            <h3>📐 Key Ratios</h3>
+            <p>Learn PE, EPS, ROE, and other ratios for company evaluation.</p>
+            <button onclick="openLesson('ratios', this)">Learn</button>
+        </div>
+
+        <div class="learn-card" data-topic="risk_portfolio">
+            <h3>⚠️ Risk & Portfolio Management</h3>
+            <p>Learn how to manage investment risks and diversify your portfolio.</p>
+            <button onclick="openLesson('risk_portfolio', this)">Learn</button>
+        </div>
+
+        <div class="learn-card" data-topic="indicators_charts">
+            <h3>📊 Indicators & Charts</h3>
+            <p>Learn RSI, MACD, Moving Averages, and how to read stock charts.</p>
+            <button onclick="openLesson('indicators_charts', this)">Learn</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Lesson Modal -->
+<div id="lessonModal" class="lesson-modal">
+    <div class="lesson-modal-content">
+        <span onclick="closeLesson()" class="lesson-close">×</span>
+        <h3 id="lessonTitle" class="lesson-title"></h3>
+        <div id="lessonContent" class="lesson-content"></div>
+        <button onclick="startQuizFromLesson()" class="lesson-quiz-btn">Take Quiz</button>
+    </div>
+</div>
+
+<!-- Link external JS -->
+<script src="{% static 'js/services.js' %}"></script>
+{% endblock %}

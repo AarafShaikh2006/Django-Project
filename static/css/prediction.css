@@ -1,0 +1,216 @@
+/* === Stock Prediction Dashboard - Wide Layout === */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f5f7fb;
+  color: #1f2937;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 95%;
+  margin: 40px auto;
+}
+
+.card {
+  border: none;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  padding: 25px;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+/* Header */
+h2 {
+  font-size: 2.1rem;
+  color: #0f172a;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* --- Layout Structure --- */
+.main-content-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.left-column {
+  flex: 1 1 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.right-column {
+  flex: 1 1 65%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Input + Button */
+.input-group {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.form-control {
+  border: none;
+  font-size: 15px;
+  padding: 12px 15px;
+}
+
+.form-control:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #60a5fa;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #2563eb, #1e40af);
+  border: none;
+  padding: 10px 20px;
+  font-weight: 600;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #1e40af, #1e3a8a);
+  transform: scale(1.05);
+}
+
+/* Model Metrics */
+.model-metrics-card {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border-left: 6px solid #2563eb;
+}
+
+.model-metrics-card h5 {
+  color: #1d4ed8;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Price Cards */
+.price-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.price-cards-stack .card {
+  background: linear-gradient(135deg, #f9fafb, #ffffff);
+  text-align: center;
+}
+
+.price-cards-stack h5 {
+  font-size: 15px;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+.text-primary {
+  font-size: 2rem;
+  color: #2563eb !important;
+  font-weight: 700;
+}
+
+.text-success {
+  font-size: 2rem;
+  color: #16a34a !important;
+  font-weight: 700;
+}
+
+.border-primary {
+  border-left: 6px solid #2563eb !important;
+}
+
+.border-success {
+  border-left: 6px solid #16a34a !important;
+}
+
+/* Chart Area */
+.chart-card {
+  height: 480px;
+  background: #fff;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Table */
+.history-card {
+  background: #fff;
+}
+
+.history-card h5 {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+
+.table thead {
+  background: #2563eb;
+  color: #fff;
+}
+
+.table tbody tr {
+  background: #f9fafb;
+}
+
+.table tbody tr:hover {
+  background: #eff6ff;
+}
+
+.table th,
+.table td {
+  text-align: center;
+  padding: 10px 12px;
+  border: none;
+}
+
+.history-table-scroll {
+  max-height: 280px;
+  overflow-y: auto;
+  margin-top: 15px;
+}
+
+.history-table-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.history-table-scroll::-webkit-scrollbar-thumb {
+  background: #93c5fd;
+  border-radius: 8px;
+}
+
+/* Responsive Fixes */
+@media (max-width: 992px) {
+  .main-content-row {
+    flex-direction: column;
+  }
+
+  .left-column,
+  .right-column {
+    flex: 1 1 100%;
+  }
+
+  .chart-card {
+    height: 350px;
+  }
+}

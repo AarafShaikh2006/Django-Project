@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}📈 Stock Market News{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'news.css' %}">
+<style>
+.news-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.news-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+}
+
+.news-img-wrapper {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.news-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-content {
+    padding: 15px;
+    flex-grow: 1;
+}
+
+.news-content h2 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.news-content p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.news-content small {
+    color: #999;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="news-page">
+    <h1>📈 Stock Market News</h1>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <div class="news-container">
+        {% for article in articles %}
+            <div class="news-card">
+                {% if article.image_url %}
+                <div class="news-img-wrapper">
+                    <img src="{{ article.image_url }}" alt="news image" class="news-img">
+                </div>
+                {% endif %}
+                <div class="news-content">
+                    <h2><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h2>
+                    <p>{{ article.summary }}</p>
+                    <small>Source: {{ article.source }} | {{ article.time_published }}</small>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
